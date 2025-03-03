@@ -1,0 +1,6 @@
+projectKey=Food-Master-Angular
+serverUrl=http://localhost:9001
+serverVersion=24.12.0.100206
+dashboardUrl=http://localhost:9001/dashboard?id=Food-Master-Angular
+ceTaskId=8afa5b9e-3e42-4c1c-879d-ad27a79ec352
+ceTaskUrl=http://localhost:9001/api/ce/task?id=8afa5b9e-3e42-4c1c-879d-ad27a79ec352
