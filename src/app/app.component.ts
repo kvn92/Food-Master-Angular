@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal } from '@angular/core';
 import { FooterComponent } from './components/footer/footer.component';
+import { FooterModel } from './models/footer.model';
 
 @Component({
   selector: 'app-root',
-  imports: [FooterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [FooterComponent], // ✅ Importation du FooterComponent
 })
 export class AppComponent {
-  title = 'Food-Master';
+  // ✅ Signal réactif contenant les données du footer
+  footerData = signal(FooterModel.getDefault());
 }
