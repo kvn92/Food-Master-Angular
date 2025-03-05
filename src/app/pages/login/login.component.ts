@@ -2,52 +2,69 @@ import { Component, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Credentials, LoginService } from '../../services/login/login.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
-export class LoginComponent  implements OnDestroy{
+export class LoginComponent implements OnDestroy {
 
-private formBuilder = inject(FormBuilder);
-private loginService = inject(LoginService);
-private router = inject(Router);
+  private formBuilder = inject(FormBuilder);
+  private loginService = inject(LoginService);
+  private router = inject(Router);
+  private destroy$ = new Subject<void>(); // Pour gérer les abonnements et éviter les fuites mémoire
 
-private loginSubscription: Subscription | null = null;
+  loginFormGroup = this.formBuilder.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
+  });
 
-loginFormGroup = this.formBuilder.group({
-  'username': ['',[Validators.required]],
-  'password': ['',[Validators.required]]
-})
+  invalidCredentials = false;
+  isLoading = false; // Indicateur de chargement
+  errorMessage = ''; // Stocker un message d'erreur plus clair
 
-invalidCredentials = false; 
+  login() {
+    if (this.loginFormGroup.invalid) return; // Vérification de la validité du formulaire
 
-login(){
-  this.loginSubscription = this.loginService.login(
-    this.loginFormGroup.value as Credentials
-  ).subscribe({
-    next: (result: User | null | undefined) => {
-      this.navigateHome();
-    },
-    error: error => {
-      console.log(error);
-      this.invalidCredentials = true;
-    }
-  })
-}
+    this.isLoading = true; // Active le loader
+    this.invalidCredentials = false; // Réinitialise l'erreur
+    this.errorMessage = '';
 
+    this.loginService.login(
+      this.loginFormGroup.getRawValue() as Credentials
+    ).pipe(
+      takeUntil(this.destroy$) // Gestion des abonnements
+    ).subscribe({
+      next: (result: User | null | undefined) => {
+        this.isLoading = false;
+        this.navigateHome();
+      },
+      error: error => {
+        console.error('Erreur de connexion:', error);
+        this.invalidCredentials = true;
+        this.isLoading = false; // Désactive le loader après l'échec
 
-  navigateHome(){
-    this.router.navigate(['home']);
+        if (error.status === 401) {
+          this.errorMessage = "Identifiants incorrects. Veuillez réessayer.";
+        } else {
+          this.errorMessage = "Une erreur est survenue. Veuillez réessayer plus tard.";
+        }
+      }
+    });
+  }
+
+  navigateHome() {
+    this.router.navigate(['/dashboard']); // Redirige après connexion
   }
 
   ngOnDestroy(): void {
-      this.loginSubscription?.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
-
-
 }

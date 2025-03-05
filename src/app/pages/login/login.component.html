@@ -1,16 +1,22 @@
-<div id="container">
-<form (submit)="login()" [formGroup]="loginFormGroup">
-    <h3>Login</h3>
-
-    <label>Email</label>
-    <input type="text" formControlName="email" />
-
-    <label>Password</label>
-    <input type="text" formControlName="password" />
-
-    <button [disabled]="loginFormGroup.invalid">Login</button>
-    @if(invalidCredentials){
-     <div class="error">Invalid credentials</div>   
-    }
-</form>
-</div>
+<form [formGroup]="loginFormGroup" (ngSubmit)="login()">
+    <label>Email:</label>
+    <input type="email" formControlName="email">
+    <div *ngIf="loginFormGroup.controls.email.invalid && loginFormGroup.controls.email.touched">
+      ⚠️ Email invalide !
+    </div>
+  
+    <label>Mot de passe:</label>
+    <input type="password" formControlName="password">
+    <div *ngIf="loginFormGroup.controls.password.invalid && loginFormGroup.controls.password.touched">
+      ⚠️ Le mot de passe est requis !
+    </div>
+  
+    <button type="submit" [disabled]="isLoading"> 
+      {{ isLoading ? 'Connexion...' : 'Se connecter' }}
+    </button>
+  
+    <div *ngIf="invalidCredentials" class="error-message">
+      ❌ {{ errorMessage }}
+    </div>
+  </form>
+  
