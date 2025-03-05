@@ -1,1 +1,12 @@
-<app-footer [footerData]="footerModel"></app-footer>
+<app-menu></app-menu> <!-- Inclusion du menu -->
+<div class="container mt-4">
+    <router-outlet>
+@if(loginService.user()){
+  <button (click)="navigateHome()">home</button>
+  <p>Welcome {{ loginService.user()?.email }} {{ loginService.user()?.password }}</p>
+  <button (click)="logout()">Logout</button>
+} 
+
+    </router-outlet> <!-- Affichage dynamique des routes -->
+  </div>
+<app-footer [footerData]="footerData()"></app-footer>

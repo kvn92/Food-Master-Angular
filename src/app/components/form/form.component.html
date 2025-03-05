@@ -1,0 +1,31 @@
+<form [formGroup]="formulaire" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <label for="nom">Nom :</label>
+    <input id="nom" type="text" formControlName="nom">
+
+    <label for="prenom">Prénom :</label>
+    <input id="prenom" type="text" formControlName="prenom">
+
+    <label for="image">Image :</label>
+    <input id="image" type="file" (change)="onFileSelected($event)" accept="image/*">
+
+    <!-- 🔥 Affichage de l'aperçu de l'image -->
+    <div *ngIf="photoPreview">
+        <h4>Aperçu de l'image :</h4>
+        <img [src]="photoPreview" alt="Aperçu" width="200">
+    </div>
+
+    <button type="submit" [disabled]="formulaire.invalid">Soumettre</button>
+</form>
+
+<!-- 🔥 Affichage des valeurs soumises -->
+<div *ngIf="person.nom || person.prenom">
+    <h3>Données soumises :</h3>
+    <p><strong>Nom :</strong> {{ person.nom }}</p>
+    <p><strong>Prénom :</strong> {{ person.prenom }}</p>
+
+    <!-- Affichage de l'image après soumission -->
+    <div *ngIf="person.photo">
+        <h4>Image sélectionnée :</h4>
+        <p>{{ person.photo.name }}</p>
+    </div>
+</div>
