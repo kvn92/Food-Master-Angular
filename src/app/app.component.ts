@@ -17,6 +17,7 @@ export class AppComponent implements OnDestroy {
 
  private router = inject(Router);
   loginService = inject(LoginService);
+  
 
  private logoutSubscription: Subscription | null = null; 
 
@@ -39,6 +40,11 @@ export class AppComponent implements OnDestroy {
   navigateHome(){
     this.router.navigate(['home']);
   }
+
+  navigateIngredient(){
+    this.router.navigate(['home']);
+  }
+
 
   ngOnDestroy(): void {
       this.logoutSubscription?.unsubscribe();

@@ -6,6 +6,7 @@ import { User } from '../../models/user.model';
 export interface Credentials {
   email: string;
   password: string;
+  pseudo: string;
 }
 
 @Injectable({

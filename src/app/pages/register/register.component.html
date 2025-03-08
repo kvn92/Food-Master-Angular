@@ -1,0 +1,28 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+
+  <label>Pseudo:</label>
+  <input type="text" formControlName="pseudo">
+  @if (registerForm.controls['pseudo'].invalid && registerForm.controls['pseudo'].touched) {
+    <div class="error-message">⚠️ Pseudo invalide !</div>
+  }
+
+  <label>Email:</label>
+  <input type="email" formControlName="email">
+  @if (registerForm.controls['email'].invalid && registerForm.controls['email'].touched) {
+    <div class="error-message">⚠️ Email invalide !</div>
+  }
+
+  <label>Mot de passe:</label>
+  <input type="password" formControlName="password">
+  @if (registerForm.controls['password'].invalid && registerForm.controls['password'].touched) {
+    <div class="error-message">⚠️ Le mot de passe doit contenir au moins 6 caractères !</div>
+  }
+
+  <button type="submit" [disabled]="isLoading"> 
+    {{ isLoading ? 'Inscription...' : "S'inscrire" }}
+  </button>
+
+  @if (errorMessage) {
+    <div class="error-message">❌ {{ errorMessage }}</div>
+  }
+</form>

@@ -1,0 +1,36 @@
+<div class="container">
+  <h1>📖 Liste des Recettes</h1>
+
+  <!-- Message de chargement -->
+  <div *ngIf="isLoading" class="loading">Chargement des recettes...</div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="error-message">
+    ❌ {{ errorMessage }}
+  </div>
+
+  <!-- Message si aucune recette disponible -->
+  <div *ngIf="!isLoading && recettes.length === 0">
+    <p>Aucune recette disponible.</p>
+  </div>
+  @for (recette of recettes; track recette.id) {
+    <div class="recette-card">
+        <h2>{{ recette.titre }}</h2>
+        <p><strong>Préparation :</strong> {{ recette.preparation }}</p>
+        <p><strong>Niveau :</strong> {{ getNiveauLabel(recette.niveau) }}</p>
+        <p><strong>Durée :</strong> {{ recette.duree }} min</p>
+        <p><strong>Date :</strong> {{ recette.createdAt | date:'short' }}</p>
+    
+        <!-- Affichage des ingrédients -->
+        <h3>🛒 Ingrédients :</h3>
+        <ul>
+
+        </ul>
+    
+        <!-- Boutons -->
+        <button class="delete-btn" (click)="deleteRecette(recette.id)">🗑 Supprimer</button>
+      </div>
+  }
+  <!-- Liste des recettes -->
+
+</div>
