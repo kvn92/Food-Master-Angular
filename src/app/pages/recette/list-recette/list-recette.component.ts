@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { RecetteService } from '../../../services/recette/recette.service';
 import { Recette } from '../../../models/recette.models';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 
 
 
 @Component({
   selector: 'app-list-recette',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './list-recette.component.html',
   styleUrl: './list-recette.component.css',
   standalone: true
@@ -67,6 +68,10 @@ recettes: Recette[] = [];
   // 📌 Récupérer le label du type de repas
   getRepasLabel(id: number): string {
     return this.recetteService.getRepasLabel(id);
+  }
+
+  getViandeLabel(id: number): string {
+    return this.recetteService.getViandeLabel(id);
   }
 
   // 📌 Formater la date

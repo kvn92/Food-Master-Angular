@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Modifier la recette</h2>
+  
+    <form [formGroup]="recetteForm" (ngSubmit)="updateRecette()">
+      <label>Titre :</label>
+      <input type="text" formControlName="titre">
+  
+      <label>Préparation :</label>
+      <textarea formControlName="preparation"></textarea>
+  
+      <label>Photo :</label>
+      <input type="text" formControlName="photo">
+  
+      <label>Durée (min) :</label>
+      <input type="number" formControlName="duree">
+  
+      <button type="submit" [disabled]="recetteForm.invalid">✅ Modifier</button>
+    </form>
+  
+    <div *ngIf="errorMessage" class="error-message">
+      ❌ {{ errorMessage }}
+    </div>
+  </div>
+  

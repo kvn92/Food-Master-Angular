@@ -1,13 +1,14 @@
 import { Component, input, Signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterModel } from '../../models/footer.model';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
   templateUrl: './footer.component.html',
   styleUrl:'./footer.component.css',
-  imports: [CommonModule],
+  imports: [CommonModule,ReactiveFormsModule],
 })
 export class FooterComponent {
   // ✅ Remplace @Input() par input() pour gérer la réactivité

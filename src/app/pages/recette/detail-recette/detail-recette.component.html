@@ -1,0 +1,13 @@
+<div *ngIf="recette; else loading">
+  <h2>{{ recette.titre }}</h2>
+  <p><strong>Préparation :</strong> {{ recette.preparation }}</p>
+  <p><strong>Date :</strong> {{ recette.createdAt }}</p>
+  <p><strong>Niveau :</strong> {{ recette.niveau }}</p>
+  <p><strong>Durée :</strong> {{ recette.duree }} min</p>
+  <p><strong>Repas :</strong> {{ recette.repas }}</p>
+  <p><strong>Viande :</strong> {{ recette.viande }}</p>
+</div>
+
+<ng-template #loading>
+  <p>Chargement en cours...</p>
+</ng-template>

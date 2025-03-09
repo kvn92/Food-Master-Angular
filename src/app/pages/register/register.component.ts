@@ -4,7 +4,6 @@ import { RegisterService } from '../../services/register.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { User } from '../../models/user.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -47,7 +46,7 @@ export class RegisterComponent implements OnDestroy {
     this.registerService.register(this.registerForm.getRawValue()).pipe(
       takeUntil(this.destroy$) // Gestion des abonnements
     ).subscribe({
-      next: (result: User) => {
+      next: () => {
         this.isLoading = false;
         this.router.navigate(['/login']); // ✅ Redirige après inscription
       },

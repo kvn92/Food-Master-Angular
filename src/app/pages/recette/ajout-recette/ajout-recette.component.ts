@@ -14,11 +14,12 @@ export class AjoutRecetteComponent {
 import { Component, OnInit } from '@angular/core';
 import { RecetteService } from '../../../services/recette/recette.service';
 import { Recette } from '../../../models/recette.models';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule,  } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-recette',
-  imports: [CommonModule],
+  imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './ajout-recette.component.html',
   styleUrls: ['./ajout-recette.component.css']
 })

@@ -5,11 +5,14 @@ export class Recette {
       public preparation: string = '',
       public photo?: string,
       public createdAt: string = '',
-      public niveau: number = 0, // Ex: 0 = Facile, 1 = Moyen, 2 = Difficile
+      public niveau :number = 0,
+      public repas: number = 0, 
+      public viande: number = 0,// Ex: 0 = Facile, 1 = Moyen, 2 = Difficile
       public duree: number = 0,
 
     ) {
       this.titre = titre;
+      this.niveau = niveau;
     }
   
   

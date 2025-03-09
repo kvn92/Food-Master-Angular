@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Recette } from '../../models/recette.models';
 
 @Injectable({
@@ -14,10 +14,10 @@ export class RecetteService {
 
   // 📌 Récupérer toutes les recettes
   getRecettes(): Observable<Recette[]> {
-    return this.http.get<Recette[]>(this.API_URL).pipe(
-      tap(data => console.log("✅ Données reçues :", data)) // Affiche les données en console
-    );
-  }
+  return this.http.get<Recette[]>(this.API_URL).pipe(
+    tap(data => console.log("✅ Données reçues :", data)) // Affiche les données en console
+  );
+}
 
   // 📌 Récupérer une recette par son ID
   getRecetteById(id: number): Observable<Recette> {
@@ -35,14 +35,18 @@ export class RecetteService {
   }
 
   // 📌 Supprimer une recette
-  deleteRecette(id: number): Observable<Recette> {
-    return this.http.delete<Recette>(`${this.API_URL}/${id}`);
+  deleteRecette(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.API_URL}/${id}`);
   }
 
   // ✅ 📌 MÉTHODES MÉTIER (Logique de transformation)
 
   // 📌 Transformer un niveau en label
   getNiveauLabel(niveau: number): string {
+    return ['Facile', 'Moyen', 'Difficile'][niveau] || 'Inconnu';
+  }
+
+  getViandeLabel(niveau: number): string {
     return ['Facile', 'Moyen', 'Difficile'][niveau] || 'Inconnu';
   }
 

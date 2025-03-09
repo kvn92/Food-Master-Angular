@@ -42,7 +42,7 @@ export class LoginComponent implements OnDestroy {
     ).pipe(
       takeUntil(this.destroy$) // Gestion des abonnements
     ).subscribe({
-      next: (result: User | null | undefined) => {
+      next: () => {
         this.isLoading = false;
         this.navigateHome();
       },
